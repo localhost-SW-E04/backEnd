@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const Doctor = new Schema({
     name: { type: String, required: true },
     specialisation: { type: String, required: true },
+    tags: { type: [String], required: true },
     desc: { type: String }
 })
 const Bed = new Schema({
@@ -21,6 +22,7 @@ const Hospital = new Schema({
     bedsAvailable: { type: Number, required: true },
     bed: { type: [Bed], required: true },
     totalBeds: { type: Number, required: true },
+    tags: { type: [String], required: true },
     doctors: { type: [Doctor], required: true },
 
 },

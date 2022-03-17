@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs');
 
 router.route('/signup').post(async (req, res) => {
     // const name = req.body.name;
-    const { aadharno, email, password, cpassword } = req.body;
+    const { aadharno, email, password, cpassword, name } = req.body;
     const existingUser = await User.findOne({ aadharno: aadharno });
 
 
@@ -24,6 +24,7 @@ router.route('/signup').post(async (req, res) => {
                 aadharno,
                 email,
                 password,
+                name,
             });
             newUser.save()
                 .then(() => res.json('user added'))
@@ -36,10 +37,10 @@ router.route('/signup').post(async (req, res) => {
 
 
 router.route('/signin').post(async (req, res) => {
-    const { email, aadharno, password } = req.body;
+    const { aadharno, password } = req.body;
 
     try {
-        if (!password || !email || !aadharno) {
+        if (!password || !aadharno) {
             return res.status(404).json({ message: 'enter all details' })
         }
 

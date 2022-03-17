@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs')
 const Schema = mongoose.Schema;
-const userdata = new Schema({
+const doctordata = new Schema({
     aadharno: { type: Number, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
@@ -12,7 +12,7 @@ const userdata = new Schema({
         timestamps: true,
     });
 
-userdata.pre('save', async function (next) {
+doctordata.pre('save', async function (next) {
     //console.log('hi');
     if (this.isDirectModified('password' || 'cpassword')) {
 
@@ -23,5 +23,5 @@ userdata.pre('save', async function (next) {
     next()
 
 });
-const User = mongoose.model('userdata', userdata);
+const User = mongoose.model('doctordata', doctordata);
 module.exports = User;
