@@ -6,7 +6,7 @@ var bcrypt = require('bcryptjs');
 
 router.route('/signup').post(async (req, res) => {
     // const name = req.body.name;
-    const { aadharno, email, password, cpassword, name } = req.body;
+    const { aadharno, email, password, cpassword, name, dob, gender } = req.body;
     const existingUser = await User.findOne({ aadharno: aadharno });
 
 
@@ -24,12 +24,14 @@ router.route('/signup').post(async (req, res) => {
             const encryptedPassword = await bcrypt.hashSync(password, salt);
             const newUser = new User({
                 aadharno,
+                dob,
                 email,
+                gender,
                 password: encryptedPassword,
                 name
             });
             newUser.save()
-                .then(() => res.json('user added'))
+                .then(() => res.json({ status: "you are signed in", uid: newUser._id, success: true }))
                 .catch(err => res.status(400).json('Error: ' + err));
         }
     }
@@ -51,10 +53,10 @@ router.route('/signin').post(async (req, res) => {
 
             const ispassCorrect = await bcrypt.compare(password, existingUser.password)
             if (!ispassCorrect) {
-                return res.json("password is incorrect");
+                return res.json({ status: "password is incorrect", uid: null, success: false });
             }
             else {
-                res.json({ status: "you are signed in", uid: existingUser._id });
+                res.json({ status: "you are signed in", uid: existingUser._id, success: true });
             }
         } else { res.json("invalid user") }
     }
