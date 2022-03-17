@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Doctor = new Schema({
-    name: { type: String, required: true },
-    specialisation: { type: String, required: true },
-    tags: { type: [String], required: true },
-    desc: { type: String }
+    uid: { type: Number, required: true },
 })
 const Bed = new Schema({
     availability: { type: Boolean, required: true },

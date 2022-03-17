@@ -1,13 +1,13 @@
 const router = require('express').Router();
-let User = require('../Model/User.model');
+let Doctor = require('../Model/Doctors.model');
 var bcrypt = require('bcryptjs');
 
 
 
 router.route('/signup').post(async (req, res) => {
     // const name = req.body.name;
-    const { aadharno, email, password, cpassword, name } = req.body;
-    const existingUser = await User.findOne({ aadharno: aadharno });
+    const { aadharno, tags, desc, specialisation, name, password, cpassword } = req.body;
+    const existingUser = await Doctor.findOne({ aadharno: aadharno });
 
 
     if (existingUser) {
@@ -22,13 +22,15 @@ router.route('/signup').post(async (req, res) => {
         else {
             const salt = await bcrypt.genSaltSync(10);
             const encryptedPassword = await bcrypt.hashSync(password, salt);
-            const newUser = new User({
+            const newDoctor = new Doctor({
+                tags,
+                desc,
+                specialisation,
                 aadharno,
-                email,
-                password: encryptedPassword,
-                name
+                name,
+                password: encryptedPassword
             });
-            newUser.save()
+            newDoctor.save()
                 .then(() => res.json('user added'))
                 .catch(err => res.status(400).json('Error: ' + err));
         }
@@ -46,7 +48,7 @@ router.route('/signin').post(async (req, res) => {
             return res.status(404).json({ message: 'enter all details' })
         }
 
-        const existingUser = await User.findOne({ aadharno: aadharno })
+        const existingUser = await Doctor.findOne({ aadharno: aadharno })
         if (existingUser) {
 
             const ispassCorrect = await bcrypt.compare(password, existingUser.password)
@@ -66,7 +68,7 @@ router.route('/signin').post(async (req, res) => {
 
 router.route('/:aadharno').get((req, res) => {
     const aadharno = req.params.aadharno;
-    User.findOne({ "aadharno": aadharno })
+    Doctor.findOne({ "aadharno": aadharno })
         .then(result => res.json(result))
         .catch(err => res.status(400).json(`Error: ` + err));
 

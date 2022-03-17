@@ -13,7 +13,8 @@ router.route('/add').post(async (req, res) => {
             const History = new medHistory({
                 aadharno,
                 name,
-                prescriptions
+                prescriptions,
+                date: Date.now()
             });
 
             History.save()

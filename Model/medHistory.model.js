@@ -18,6 +18,7 @@ const Prescription = new Schema({
     desc: { type: String, required: false }
 })
 const MedHistory = new Schema({
+    date: { type: Date, required: true },
     aadharno: { type: Number, required: true },
     prescriptions: { type: [Prescription], required: true },
     name: { type: String, required: true },

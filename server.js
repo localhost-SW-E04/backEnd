@@ -21,9 +21,11 @@ mongoose.connection.once('open', () => {
 const User = require('./Routes/User')
 const medHistory = require('./Routes/medHistory')
 const hospital = require('./Routes/Hospital')
+const doctor = require('./Routes/doctor')
 app.use('/user', User)
 app.use('/medHistory', medHistory)
 app.use('/hospital', hospital)
+app.use('/doctor', doctor)
 
 
 app.listen(port, () => {
