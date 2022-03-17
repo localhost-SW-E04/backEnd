@@ -54,7 +54,7 @@ router.route('/signin').post(async (req, res) => {
                 return res.json("password is incorrect");
             }
             else {
-                res.json({ status: "you are signed in", uid: aadharno });
+                res.json({ status: "you are signed in", uid: existingUser._id });
             }
         } else { res.json("invalid user") }
     }
@@ -64,9 +64,9 @@ router.route('/signin').post(async (req, res) => {
 })
 
 
-router.route('/:aadharno').get((req, res) => {
-    const aadharno = req.params.aadharno;
-    User.findOne({ "aadharno": aadharno })
+router.route('/:id').get((req, res) => {
+    const aadharno = req.params.id;
+    User.findOne({ "_id": aadharno })
         .then(result => res.json(result))
         .catch(err => res.status(400).json(`Error: ` + err));
 
