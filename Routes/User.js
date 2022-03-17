@@ -1,5 +1,5 @@
 const router = require('express').Router();
-let User = require('../Model/User.model');
+let User = require('../Model/user.model');
 var bcrypt = require('bcryptjs');
 
 
@@ -24,7 +24,7 @@ router.route('/signup').post(async (req, res) => {
                 aadharno,
                 email,
                 password,
-                name,
+                name
             });
             newUser.save()
                 .then(() => res.json('user added'))
@@ -37,10 +37,10 @@ router.route('/signup').post(async (req, res) => {
 
 
 router.route('/signin').post(async (req, res) => {
-    const { aadharno, password } = req.body;
+    const { email, aadharno, password } = req.body;
 
     try {
-        if (!password || !aadharno) {
+        if (!password || !email || !aadharno) {
             return res.status(404).json({ message: 'enter all details' })
         }
 
