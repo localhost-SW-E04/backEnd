@@ -42,6 +42,11 @@ router.route('/edit/:id').post(async (req, res) => {
                 .catch((err) => res.status(404).json(`error-> ${err}`))
         })
 })
+router.route('/').get(async (req, res) => {
+    Hospital.find({})
+        .then(hospital => res.json(hospital))
+        .catch(err => res.status(404).json(`error-> ${err}`))
+})
 router.route('/delete/:id').delete((req, res) => {
     Hospital.findByIdAndDelete(req.params.id)
         .then(() => res.json('Exercise deleted'))
