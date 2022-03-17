@@ -12,7 +12,7 @@ const port = process.env.PORT || 5000;
 
 const uri = process.env.ATLAS_URI;
 
-mongoose.connect(uri, {});
+mongoose.connect(uri, { newUserUrlParser: true });
 
 mongoose.connection.once('open', () => {
     console.log("mongodb connected");
