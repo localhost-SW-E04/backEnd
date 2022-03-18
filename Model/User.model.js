@@ -3,8 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Hospital = new Schema({
-    id: { type: Number, required: false },
+    id: { type: String, required: false },
     tob: { type: String, required: false },
+    bedtype: { type: String, required: false },
 })
 const userSchema = new Schema({
     aadharno: { type: Number, required: true },

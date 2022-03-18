@@ -29,7 +29,7 @@ router.route('/signup').post(async (req, res) => {
                 gender,
                 password: encryptedPassword,
                 name,
-                hospitalbooked: { id: null, tob: null },
+                hospitalbooked: { id: null, tob: null, bedtype: null },
                 doctorid: null
 
             });
