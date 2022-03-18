@@ -47,6 +47,14 @@ router.route('/').get(async (req, res) => {
         .then(hospital => res.json(hospital))
         .catch(err => res.status(404).json(`error-> ${err}`))
 })
+
+router.route('/bed').get(async (req, res) => {
+    Hospital.find({ bedsAvailable: { $gt: 0 } })
+        .then(hospital => res.json(hospital.map(h => `address: ${h.location.address} bedsAvailable: ${h.bedsAvailable} bed: ${h.bed}`)))
+        .catch(err => res.status(404).json(`error-> ${err}`))
+})
+
+
 router.route('/delete/:id').delete((req, res) => {
     Hospital.findByIdAndDelete(req.params.id)
         .then(() => res.json('Exercise deleted'))

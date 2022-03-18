@@ -15,6 +15,7 @@ const Location = new Schema({
     desc: { type: String, required: false }
 })
 const Hospital = new Schema({
+    name: { type: String, required: true },
     location: { type: Location, required: true },
     bedsAvailable: { type: Number, required: true },
     bed: { type: [Bed], required: true },
